@@ -1,0 +1,26 @@
+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
+
+ Start MongoDB.
+	sudo systemctl start mongod
+	
+Verify that MongoDB has started successfully
+	sudo systemctl status mongod
+	
+Stop MongoDB
+	sudo systemctl stop mongod
+
+Restart MongoDB
+	sudo systemctl restart mongod
+
+Begin using MongoDB
+	mongosh
+
+
+Деструктуризация (destructuring assignment)
+Деструктуризация (destructuring assignment) – это особый синтаксис присваивания, при котором можно присвоить массив или объект сразу нескольким переменным, разбив его на части.
+https://learn.javascript.ru/destructuring
+https://learn.javascript.ru/destructuring-assignment
+
+
+Bearer Token
+https://www.diera.ru/blog/bearer-token/
