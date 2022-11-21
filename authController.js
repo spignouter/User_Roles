@@ -9,7 +9,7 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 // секретный ключ
 const {secret} = require('./config')
-// создание функции веб-токена
+// создание функции веб-токена, тело токена это payload в нем содержаться ид и роль пользователя, эти данные шифруються в json веб-токен
 const generationAccessToken = (id, roles) =>{
     const payload = {
         id, 
@@ -17,8 +17,6 @@ const generationAccessToken = (id, roles) =>{
     }
     return jwt.sign(payload,secret, {expiresIn:"24h"} )
 }
-
-
 // валидация, эта функция ответственна за ошибки при проверки валидации
 const {validationResult} = require('express-validator')
 
@@ -33,9 +31,7 @@ class authController {
             // если массив ошибок не пустой, то возвращаем ошибку на клиент
             if(!errors.isEmpty()){
                 return res.status(400).json({massage:"Ошибки при регистрации", errors})
-
             }
-
             // вытаскиваем данные из запроса самая загодочная строка, почему мы смотрим содержимое запроса на сервер, а может быть потому что, клиент проходя по маршруту запускает выполниния мидла, который смотрит пришедший запрос пользователя и достаёт от туда данные через req.body
             const {username, password} = req.body
             // ищем в базе введеное имя, если такое имя уже есть то добовлять его не следует
@@ -44,7 +40,6 @@ class authController {
             if(candidate){
                 return res.status(400).json({massage:"Такой уже тут"})
             }
-
             // создание хешированого пароля
             const hashPassword = bcrypt.hashSync(password, 6)
             // получение данных прав доступа из базы данных, именно здесь вабираеться роль пользователя при создании {value:"USER"} или {value:"ADMIN"}
@@ -55,7 +50,6 @@ class authController {
             // в конце сохроняем 
             user.save()
             return res.json({message: "Ты справился, скажи себе, молодец"})
-
         }catch(e){
             console.log(e)
             res.status(400).json({message:'Ошибочка такая'})
@@ -108,5 +102,4 @@ class authController {
         }
     }
 }
-
 module.exports = new authController()
