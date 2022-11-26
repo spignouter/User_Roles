@@ -9,12 +9,11 @@ module.exports = function (req, res, next) {
         next()
     }
     try{
-        // токен передаёться в заголовке Authorization: Bearer <token> по этоме его следует достать
+        // токен передаёться в заголовке Authorization: Bearer <token> по этому его следует достать
         // так как запрос являеться текстом его легко можно разбить на состояляющие, в данном сучае по пробелу
         const token = req.headers.authorization.split(' ')[1]
         if(!token){
             return res.status(403).json({message:"пользователь не приходил 1"})
-
         }
         // если токен в заголовке то декодируем его, тогда в нем лежит payload сформированный при генирации токена
         console.log("Ага попался! auth")

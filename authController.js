@@ -95,8 +95,9 @@ class authController {
             // Получение пользователей из базы данных
             const users = await User.find()
             res.json(users)
-            res.json("всё ок")
-        }catch(e){
+            // Была не приятная ошибка ERR_HTTP_HEADERS_SENT: свидетельствуящая об повторной передачи обекту ответа res.json() несколько раз подряд эти компоненты нельзя вызывать
+
+            }catch(e){
             console.log(e)
             res.status(400).json({message:'Угадай какая ошибка?'})            
         }

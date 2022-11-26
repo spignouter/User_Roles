@@ -17,9 +17,9 @@ module.exports = function (roles){
           return res.status(403).json({message:"пользователь не приходил 1"})
         }
         // если токен в заголовке то декодируем его, тогда в нем лежит payload сформированный при генирации токена
-        console.log("Ага попался! role")
         // трюк с переименованием теперь данные пейлоода хроняться в userRole
         const {roles:userRoles} = jwt.verify(token, secret)
+        console.log(userRoles)
         // переменная 
         let hasRole = false
         // С помощью цикла просмотрим все роли записанные у пользователя
@@ -32,7 +32,6 @@ module.exports = function (roles){
         if(!hasRole){
           return res.status(403).json({message:"Именно тебе это делать нельзя"})
         }
-
         next()
       }catch(e){
         console.log(e)

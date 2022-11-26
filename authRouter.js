@@ -9,13 +9,10 @@ const controller = require('./authController')
 const {check} = require("express-validator")
 
 // функция доступная для авторизованных пользователей
-const authMiddleware = require("./middleware/authMiddleware")
-
+// const authMiddleware = require("./middleware/authMiddleware")
 
 // доступно админу
 const roleMiddleware = require("./middleware/roleMiddleware")
-
-
 
 // встраиваем валидатор прямо в запрос
 router.post('/registration',[
@@ -29,7 +26,5 @@ router.post('/login', controller.login)
 // router.get('/users', authMiddleware ,controller.getUsers)
 
 // этот код использует значения роли пользователя
-router.get('/users', roleMiddleware(['USER']) ,controller.getUsers)
-
-
+router.get('/users', roleMiddleware(['USER','ADMIN']) ,controller.getUsers)
 module.exports = router
